@@ -1,0 +1,8 @@
+<div class="user_form">
+  <h1 class="text-center">Edit Note</h1>
+  <%= render 'form' %>
+  <div class="links mt-3">
+    <%= link_to 'View Note', @note, class: "back-link" %> |
+    <%= link_to 'Back to Notes', notes_path, class: "back-link" %>
+  </div>
+</div>

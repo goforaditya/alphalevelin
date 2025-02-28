@@ -1,0 +1,48 @@
+<%= form_with(model: @note, local: true, data: { turbo: false }, class: "form_con") do |f| %>
+  <% if @note.errors.any? %>
+    <div class="error_explanation">
+      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
+      <ul>
+        <% @note.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form_box title_box">
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: "Note title..." %>
+  </div>
+
+  <div class="form_box content_box">
+    <%= f.label :content, "Content (Markdown)" %>
+    <%= f.text_area :content, placeholder: "Write your note content in Markdown...", id: "markdown-editor-note" %>
+    <small>You can use Markdown formatting for your notes</small>
+  </div>
+
+  <div class="form_box button">
+    <%= f.submit(@note.new_record? ? "Save Note" : "Update Note", class: "sign_btn") %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var simplemde = new SimpleMDE({ 
+      element: document.getElementById("markdown-editor-note"),
+      spellChecker: false,
+      autosave: {
+        enabled: true,
+        uniqueId: "note-<%= @note.id || 'new' %>",
+        delay: 1000,
+      },
+      toolbar: [
+        "bold", "italic", "heading", "|",
+        "quote", "unordered-list", "ordered-list", "|",
+        "link", "image", "code", "table", "|",
+        "preview", "side-by-side", "fullscreen", "|",
+        "guide"
+      ]
+    });
+  });
+</script>

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password validations: false
   has_many :posts, dependent: :destroy
+  has_many :notes, dependent: :destroy
   
   validates :username, presence: true, 
                        uniqueness: { case_sensitive: false }, 

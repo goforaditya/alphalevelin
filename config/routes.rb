@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new' 
   resources :users, except: [:new]
 
+  # Private user notes
+  resources :notes
+  
   #user login & logout
   get 'signin', to: 'sessions#new' 
   post 'signin', to: 'sessions#create'

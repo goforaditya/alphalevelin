@@ -1,0 +1,21 @@
+<div class="note-display">
+  <div class="note-header">
+    <h1><%= @note.title %></h1>
+    <div class="note-meta">
+      <span class="note-date">Created: <%= @note.created_at.strftime("%b %d, %Y") %></span>
+      <% if @note.updated_at != @note.created_at %>
+        <span class="note-date">Updated: <%= @note.updated_at.strftime("%b %d, %Y") %></span>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="note-content markdown-content">
+    <%= raw @note.rendered_content %>
+  </div>
+  
+  <div class="note-actions">
+    <%= link_to "Edit", edit_note_path(@note), class: "note-btn edit" %>
+    <%= link_to "Delete", @note, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this note?" }, class: "note-btn delete" %>
+    <%= link_to "Back to Notes", notes_path, class: "note-btn back" %>
+  </div>
+</div>

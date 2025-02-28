@@ -1,0 +1,31 @@
+<div class="notes-container">
+  <div class="notes-header">
+    <h1>My Notes</h1>
+    <%= link_to "Create New Note", new_note_path, class: "sign_btn" %>
+  </div>
+  
+  <% if @notes.empty? %>
+    <div class="no-notes">
+      <p>You don't have any notes yet. Start by creating a new note!</p>
+    </div>
+  <% else %>
+    <div class="notes-list">
+      <% @notes.each do |note| %>
+        <div class="note-card">
+          <h2 class="note-title"><%= link_to note.title, note %></h2>
+          <div class="note-meta">
+            <span class="note-date">Created: <%= note.created_at.strftime("%b %d, %Y") %></span>
+            <% if note.updated_at != note.created_at %>
+              <span class="note-date">Updated: <%= note.updated_at.strftime("%b %d, %Y") %></span>
+            <% end %>
+          </div>
+          <div class="note-actions">
+            <%= link_to "View", note, class: "note-action view" %>
+            <%= link_to "Edit", edit_note_path(note), class: "note-action edit" %>
+            <%= link_to "Delete", note, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this note?" }, class: "note-action delete" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
