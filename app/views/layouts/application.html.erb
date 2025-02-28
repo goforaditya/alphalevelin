@@ -10,19 +10,29 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "posts", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "nav", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "postform", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "errors", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "postshow", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "pagination", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "about", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "category", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "message", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "signandeditform", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "users", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "profile", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+  <%= render 'layouts/header' %>
+  <div class="app-con">
+    <%= render 'layouts/messages' %>
+      <%= yield %>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </div>
   </body>
 </html>
