@@ -41,6 +41,31 @@
     border: 1px solid var(--gray-color);
     outline: none !important;
 }
+
+/* SimpleMDE overrides */
+.new-edit .content_box .CodeMirror, 
+.new-edit .content_box .CodeMirror-scroll {
+    min-height: 300px;
+    max-height: none;
+}
+
+.new-edit .content_box .editor-toolbar {
+    border-radius: 4px 4px 0 0;
+    opacity: 1;
+}
+
+.new-edit .content_box .CodeMirror {
+    border-radius: 0 0 4px 4px;
+    border: 1px solid var(--gray-color);
+    font-size: 1.1rem;
+}
+
+.new-edit .github_link_box small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.85rem;
+}
 .new-edit .thumnail input{
     cursor: pointer;
 }

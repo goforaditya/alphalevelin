@@ -6,9 +6,37 @@
   </div>
  
   <div class="form_box content_box">
-    <%= f.label :content %>
-    <%= f.text_area :content, placeholder:"Tell us more..." %>
+    <%= f.label :content, "Content (Markdown)" %>
+    <%= f.text_area :content, placeholder:"Write your content in Markdown...", id: "markdown-editor" %>
+    <small>You can use Markdown formatting for your content</small>
   </div>
+
+  <div class="form_box github_link_box">
+    <%= f.label :github_repo_link, "GitHub Markdown URL (Optional)" %>
+    <%= f.text_field :github_repo_link, placeholder:"https://github.com/username/repo/blob/main/path/to/file.md" %>
+    <small>If provided, content will be fetched from this URL rather than using the editor above</small>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var simplemde = new SimpleMDE({ 
+        element: document.getElementById("markdown-editor"),
+        spellChecker: false,
+        autosave: {
+          enabled: true,
+          uniqueId: "post-<%= @post.id || 'new' %>",
+          delay: 1000,
+        },
+        toolbar: [
+          "bold", "italic", "heading", "|",
+          "quote", "unordered-list", "ordered-list", "|",
+          "link", "image", "code", "table", "|",
+          "preview", "side-by-side", "fullscreen", "|",
+          "guide"
+        ]
+      });
+    });
+  </script>
 
   <div class="form_box thumnail">
     <%= f.label :thumbnail %>

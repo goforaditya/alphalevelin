@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   post 'signin', to: 'sessions#create'
   delete 'signout', to: 'sessions#destroy'
   
+  # OmniAuth routes
+  post '/auth/:provider/callback', to: 'omniauth_callbacks#:provider'
+  get '/auth/failure', to: redirect('/')
 end

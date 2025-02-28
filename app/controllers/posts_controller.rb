@@ -57,7 +57,7 @@ def find_params
 end
 
 def post_inputs
-   params.require(:post).permit(:title, :content, :thumbnail, category_ids:[])
+   params.require(:post).permit(:title, :content, :thumbnail, :github_repo_link, category_ids:[])
 end
 
 def require_exact_user

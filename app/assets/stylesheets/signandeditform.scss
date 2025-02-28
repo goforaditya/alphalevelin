@@ -41,3 +41,65 @@
         width: 100%;
       }
   }
+  
+  /* Social Login Styles */
+  .social-login {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .divider span {
+    padding: 0 10px;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .social-btn i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .social-btn.github {
+    background-color: #24292e;
+  }
+  
+  .social-btn.github:hover {
+    background-color: #0f1114;
+  }
+  
+  .social-btn.google {
+    background-color: #4285F4;
+  }
+  
+  .social-btn.google:hover {
+    background-color: #2a75f3;
+  }
