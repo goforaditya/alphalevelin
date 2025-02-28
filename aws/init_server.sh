@@ -10,7 +10,7 @@
 
 # Configuration
 EC2_DNS="ec2-65-0-180-245.ap-south-1.compute.amazonaws.com"
-KEY_PATH="../.creds/ec2alphalevel.pem"
+KEY_PATH=".creds/ec2alphalevel.pem"
 SSH_USER="ubuntu"
 REPO_URL="https://github.com/goforaditya/alphalevelin.git"
 APP_PATH="alphalevelin"
@@ -18,6 +18,11 @@ DOMAIN="your-domain.com"  # Replace with your actual domain
 
 # Commands to run on the server
 REMOTE_COMMANDS="
+# Set up environment variables for gem installation
+export GEM_HOME=/usr/local/bundle
+export BUNDLE_PATH=/usr/local/bundle
+export PATH=/usr/local/bundle/bin:$PATH
+
 echo '===== Starting AlphaLevelin server setup ====='
 
 # Update system packages
@@ -28,17 +33,24 @@ sudo apt-get update && sudo apt-get upgrade -y
 echo '===== Installing dependencies ====='
 sudo apt-get install -y git ruby ruby-dev build-essential libssl-dev zlib1g-dev nodejs npm
 
-# Install Rails
+# Install Rails with proper permissions
 echo '===== Installing Rails ====='
 sudo gem install rails bundler --no-document
+
+# Create directory for gems with proper permissions
+sudo mkdir -p /usr/local/bundle
+sudo chown -R ubuntu:ubuntu /usr/local/bundle
 
 # Clone repository
 echo '===== Cloning repository ====='
 git clone $REPO_URL $APP_PATH
 cd $APP_PATH
 
-# Install application dependencies
+# Install application dependencies with proper environment setup
 echo '===== Installing application dependencies ====='
+export BUNDLE_PATH=/usr/local/bundle
+export GEM_HOME=/usr/local/bundle
+bundle config set --local path '/usr/local/bundle'
 bundle install
 
 # Setup database
@@ -61,9 +73,9 @@ fi
 
 # Create a startup script
 echo '===== Creating startup script ====='
-cat > start_server.sh << 'EOF'
+cat > start_server.sh << \"EOF\"
 #!/bin/bash
-cd $(dirname $0)
+cd \$(dirname \$0)
 if [ -d config/certs ]; then
   # Start server with SSL
   sudo -E bin/rails server -b 0.0.0.0 -p 443 -e development \\
@@ -74,6 +86,7 @@ else
   bin/rails server -b 0.0.0.0 -p 3000 -e development
 fi
 EOF
+
 chmod +x start_server.sh
 
 echo '===== Setup complete! ====='
