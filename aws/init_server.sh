@@ -57,7 +57,8 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 # Install dependencies
 echo '===== Installing dependencies ====='
-sudo apt-get install -y git ruby ruby-dev build-essential libssl-dev zlib1g-dev nodejs npm
+sudo apt-get install -y git ruby ruby-dev build-essential libssl-dev zlib1g-dev \
+  nodejs npm libyaml-dev  # Added libyaml-dev for psych gem
 
 # Install Rails with proper permissions
 echo '===== Installing Rails ====='
@@ -77,7 +78,10 @@ echo '===== Installing application dependencies ====='
 export BUNDLE_PATH=/usr/local/bundle
 export GEM_HOME=/usr/local/bundle
 bundle config set --local path '/usr/local/bundle'
-bundle install
+if ! bundle install; then
+    echo "Bundle installation failed. Please check the error messages above."
+    exit 1
+fi
 
 # Setup database
 echo '===== Setting up database ====='
