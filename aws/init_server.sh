@@ -10,7 +10,7 @@
 
 # Configuration
 EC2_DNS="ec2-65-0-180-245.ap-south-1.compute.amazonaws.com"
-KEY_PATH=".creds/ec2alphalevel.pem"
+KEY_PATH="ec2alphalevel.pem"
 SSH_USER="ubuntu"
 REPO_URL="https://github.com/goforaditya/alphalevelin.git"
 APP_PATH="alphalevelin"
@@ -18,6 +18,32 @@ DOMAIN="your-domain.com"  # Replace with your actual domain
 
 # Commands to run on the server
 REMOTE_COMMANDS="
+echo '===== Starting fresh AlphaLevelin server setup ====='
+
+# Clean up previous installation
+echo '===== Cleaning up previous installation ====='
+if [ -d \"$APP_PATH\" ]; then
+    sudo systemctl stop alphalevelin || true
+    cd \"$APP_PATH\" && bin/rails db:drop || true
+    cd ..
+    sudo rm -rf \"$APP_PATH\"
+fi
+
+# Clean up previous bundle installation
+sudo rm -rf /usr/local/bundle/*
+
+# Clean up previous SSL certificates
+if [ '$DOMAIN' != 'your-domain.com' ]; then
+    sudo certbot delete --cert-name \"$DOMAIN\" --non-interactive || true
+    sudo rm -rf /etc/letsencrypt/live/$DOMAIN
+    sudo rm -rf /etc/letsencrypt/archive/$DOMAIN
+    sudo rm -rf /etc/letsencrypt/renewal/$DOMAIN.conf
+fi
+
+# Reset Rails environment
+sudo gem uninstall -aIx rails
+sudo gem uninstall -aIx bundler
+
 # Set up environment variables for gem installation
 export GEM_HOME=/usr/local/bundle
 export BUNDLE_PATH=/usr/local/bundle
