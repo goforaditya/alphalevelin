@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   has_many :categories, through: :post_categories
   
   has_one_attached :thumbnail
-  validates :title, presence: true, length: {maximum:110, minimum:10}
+  validates :title, presence: true, length: {maximum:110, minimum:5}
 
   def markdown_content
     if github_repo_link.present?

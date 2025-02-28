@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_28_130206) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_28_132406) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -38,6 +38,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_130206) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "github_repo_link"
+    t.string "title"
+    t.text "content"
   end
 
   create_table "users", force: :cascade do |t|
